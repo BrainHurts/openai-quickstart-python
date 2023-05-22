@@ -3,6 +3,8 @@ import os
 import openai
 from flask import Flask, redirect, render_template, request, url_for
 
+# flask --app app run --host 0.0.0.0 --port 5001
+
 app = Flask(__name__)
 openai.api_key = os.getenv("OPENAI_API_KEY")
 
@@ -10,10 +12,10 @@ openai.api_key = os.getenv("OPENAI_API_KEY")
 @app.route("/", methods=("GET", "POST"))
 def index():
     if request.method == "POST":
-        animal = request.form["animal"]
+        category = request.form["category"]
         response = openai.Completion.create(
             model="text-davinci-003",
-            prompt=generate_prompt(animal),
+            prompt=generate_prompt(category),
             max_tokens=1000,
             temperature=0,
             top_p=1,
@@ -29,8 +31,8 @@ def index():
     return render_template("index.html", result=result)
 
 
-def generate_prompt(animal):
-    return """Create an HTML table of the top 5 {}.""".format(animal.capitalize())
+def generate_prompt(category):
+    return """Create an HTML table of the top 5 {}.""".format(category.capitalize())
 
 
 '''

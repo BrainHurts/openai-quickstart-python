@@ -12,7 +12,7 @@
   <img src="{{ url_for('static', filename='list.png') }}" class="icon" />
   <h3>Top 5 Anything</h3>
   <form action="/" method="post">
-    <input type="text" name="animal" placeholder="Enter category" required />
+    <input type="text" name="category" placeholder="Enter category" required />
     <input type="submit" value="Check" />
   </form>
   {% if result %}
